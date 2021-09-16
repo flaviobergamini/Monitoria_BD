@@ -15,13 +15,18 @@ public class Projeto {
         User user = new User("Flavio", "111.111.111-11");
         User user1 = new User("Fernando", "222.222.222-22");
         database.insertUser(user);
-
+        database.insertUser(user1);
         database.insertUser(user1);
 
         database.researchUser();
         System.out.println("#####################################");
         database.updateUser(2, "Flavinho");
 
+        database.researchUser();
+
+        System.out.println("#####################################");
+        database.deleteUser(1);
+        database.deleteUser(3);
         database.researchUser();
     }
 }
