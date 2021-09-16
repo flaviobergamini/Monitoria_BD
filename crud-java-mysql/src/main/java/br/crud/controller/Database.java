@@ -8,7 +8,7 @@ public class Database {
     Connection connection;   // objeto responsável por fazer a conexão com o servidor do MySQL
     Statement statement;     // objeto responsável por preparar consultas "SELECT"
     ResultSet result;        // objeto responsável por executar consultas "SELECT"
-    PreparedStatement pst;   // objeto responsável por preparar querys de manipulação dinâmicas (INSERT)
+    PreparedStatement pst;   // objeto responsável por preparar querys de manipulação dinâmicas (INSERT, UPDATE, DELETE)
 
     static final String user = "root";                  // usuário da instância local do servidor
     static final String password = "/MS-DOSV.6.22b";    // senha do usuário da instância local do servidor
@@ -27,6 +27,7 @@ public class Database {
         }
     }
 
+    // ----------------------------INSERINDO NOVO REGISTRO----------------------------
     public boolean insertUser(User user){
         connect();
         String sql = "INSERT INTO usuario(nome, cpf) VALUES(?, ?)";
@@ -53,6 +54,7 @@ public class Database {
         return check;
     }
 
+    // ----------------------------BUSCANDO TODOS REGISTROS----------------------------
     public ArrayList<User> researchUser(){
         connect();
         ArrayList<User> users = new ArrayList<>();
@@ -84,6 +86,7 @@ public class Database {
         return users;
     }
 
+    // ----------------------------BUSCANDO REGISTRO PELO CPF----------------------------
     public ArrayList<User> researchUserCpf(String cpf){
         connect();
         ArrayList<User> users = new ArrayList<>();
@@ -115,6 +118,7 @@ public class Database {
         return users;
     }
 
+    // ----------------------------ATUALIZANDO NOME NO REGISTRO----------------------------
     public boolean updateUser(int id, String nome){
         connect();
         String sql = "UPDATE usuario SET nome=? WHERE id=?";
@@ -138,6 +142,7 @@ public class Database {
         return check;
     }
 
+    // ----------------------------EXCLUINDO REGISTRO----------------------------
     public boolean deleteUser(int id) {
         connect();
         String sql = "DELETE FROM usuario WHERE id=?";
