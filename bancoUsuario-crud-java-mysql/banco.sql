@@ -1,0 +1,12 @@
+DROP DATABASE IF EXISTS projeto;
+CREATE DATABASE projeto;
+USE projeto;
+CREATE TABLE usuario(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(45) NOT NULL,
+    cpf VARCHAR(15) NOT NULL
+);
+
+SELECT * FROM usuario;
+
+# DELETE FROM usuario WHERE id >= 1;
