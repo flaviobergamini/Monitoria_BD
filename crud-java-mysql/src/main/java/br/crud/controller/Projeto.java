@@ -13,7 +13,15 @@ public class Projeto {
         Database database = new Database();
         database.connect();
         User user = new User("Flavio", "111.111.111-11");
-        //database.insertUser(user);
+        User user1 = new User("Fernando", "222.222.222-22");
+        database.insertUser(user);
+
+        database.insertUser(user1);
+
+        database.researchUser();
+        System.out.println("#####################################");
+        database.updateUser(2, "Flavinho");
+
         database.researchUser();
     }
 }

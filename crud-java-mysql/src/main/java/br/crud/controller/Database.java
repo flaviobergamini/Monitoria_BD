@@ -28,6 +28,7 @@ public class Database {
     }
 
     public boolean insertUser(User user){
+        connect();
         String sql = "INSERT INTO usuario(nome, cpf) VALUES(?, ?)";
         try {
 
@@ -53,6 +54,7 @@ public class Database {
     }
 
     public ArrayList<User> researchUser(){
+        connect();
         ArrayList<User> users = new ArrayList<>();
         String sql = "SELECT * FROM usuario";
         try{
@@ -72,6 +74,7 @@ public class Database {
             System.out.println("Erro de operação: " + e.getMessage());
         }finally {
             try {
+                connection.close();
                 statement.close();
                 result.close();
             }catch (SQLException e){
@@ -80,4 +83,29 @@ public class Database {
         }
         return users;
     }
+
+    public boolean updateUser(int id, String nome){
+        connect();
+        String sql = "UPDATE usuario SET nome=? WHERE id=?";
+        try{
+            pst = connection.prepareStatement(sql);
+            pst.setString(1, nome);
+            pst.setInt(2, id);
+            pst.execute();
+            check = true;
+        }catch (SQLException e){
+            System.out.println("Erro de operação: " + e.getMessage());
+            check = false;
+        }finally {
+            try {
+                connection.close();
+                pst.close();
+            }catch (SQLException e) {
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+            }
+        }
+        return check;
+    }
 }
+
+
