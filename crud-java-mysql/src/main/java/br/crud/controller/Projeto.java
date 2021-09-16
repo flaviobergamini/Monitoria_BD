@@ -19,6 +19,8 @@ public class Projeto {
         database.insertUser(user1);
 
         database.researchUser();
+        System.out.println("+#################CPF#################+");
+        database.researchUserCpf("111.111.111-11");
         System.out.println("#####################################");
         database.updateUser(2, "Flavinho");
 

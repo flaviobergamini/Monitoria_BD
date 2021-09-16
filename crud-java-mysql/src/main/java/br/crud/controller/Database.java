@@ -33,9 +33,9 @@ public class Database {
         try {
 
             pst = connection.prepareStatement(sql);
-            pst.setString(1, user.getNome());
-            pst.setString(2,user.getCpf());
-            pst.execute();
+            pst.setString(1, user.getNome());      // concatena nome na primeira ? do comando
+            pst.setString(2,user.getCpf());        // concatena nome na segunda ? do comando
+            pst.execute();                           // executa o comando
             check = true;
 
         } catch (SQLException e) {
@@ -57,6 +57,37 @@ public class Database {
         connect();
         ArrayList<User> users = new ArrayList<>();
         String sql = "SELECT * FROM usuario";
+        try{
+            statement = connection.createStatement();
+            result = statement.executeQuery(sql);
+
+            while(result.next()){
+                User userTemp = new User(result.getString("nome"), result.getString("cpf"));
+                userTemp.id = result.getInt("id");
+                System.out.println("ID = " + userTemp.id);
+                System.out.println("Nome = " + userTemp.getNome());
+                System.out.println("CPF = " + userTemp.getCpf());
+                System.out.println("------------------------------");
+                users.add(userTemp);
+            }
+        }catch (SQLException e){
+            System.out.println("Erro de operação: " + e.getMessage());
+        }finally {
+            try {
+                connection.close();
+                statement.close();
+                result.close();
+            }catch (SQLException e){
+                System.out.println("Erro ao fechar a conexão: " + e.getMessage());
+            }
+        }
+        return users;
+    }
+
+    public ArrayList<User> researchUserCpf(String cpf){
+        connect();
+        ArrayList<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM usuario WHERE cpf = '" + cpf + "'";
         try{
             statement = connection.createStatement();
             result = statement.executeQuery(sql);
