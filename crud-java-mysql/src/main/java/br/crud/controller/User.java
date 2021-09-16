@@ -3,6 +3,7 @@ package br.crud.controller;
 public class User {
     private String nome;
     private String cpf;
+    public int id;
 
     public User(String nome, String cpf){
         this.nome = nome;
